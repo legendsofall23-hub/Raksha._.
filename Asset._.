@@ -5,135 +5,215 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Our Little Memories 💖</title>
+
 <style>
-*{box-sizing:border-box}
-body{
- margin:0;padding:25px 15px;
- background:#f5ebdd;color:#4b3025;
- font-family:Georgia,serif;
+* {
+  box-sizing: border-box;
 }
-header{text-align:center;margin:15px 0 28px}
-h1{font-size:35px;font-style:italic;margin-bottom:8px}
-.subtitle{color:#8a684c;font-style:italic}
-.gallery{
- max-width:850px;margin:auto;
- display:grid;grid-template-columns:repeat(2,1fr);
- gap:16px;
+
+body {
+  margin: 0;
+  padding: 25px 15px;
+  background: #f5ebdd;
+  color: #4b3025;
+  font-family: Georgia, serif;
 }
-.card{
- background:#fffaf1;padding:10px;
- border:1px solid #d9c6ac;
- border-radius:8px;
- box-shadow:2px 4px 9px #8a684c22;
- transform:rotate(-1deg);
- transition:.25s;
- cursor:pointer;
+
+header {
+  text-align: center;
+  margin: 15px 0 28px;
 }
-.card:nth-child(even){transform:rotate(1deg)}
-.card:hover{transform:scale(1.03)}
-.card img{
- width:100%;aspect-ratio:1/1;
- object-fit:cover;border-radius:4px;
- background:#e8d7bd;
+
+h1 {
+  font-size: 35px;
+  font-style: italic;
+  margin-bottom: 8px;
 }
-.caption{text-align:center;padding:10px 2px 4px}
-footer{text-align:center;margin:35px 0 10px;
- color:#8a684c;font-style:italic}
-#viewer{
- display:none;position:fixed;inset:0;
- background:#24170feF;z-index:5;
- align-items:center;justify-content:center;
- padding:20px;
+
+.subtitle {
+  color: #8a684c;
+  font-style: italic;
 }
-#viewer.show{display:flex}
-#viewer img{max-width:95%;max-height:78vh;
- object-fit:contain;border:8px solid #fff8ed;
- border-radius:5px}
-#close{
- position:absolute;top:20px;right:20px;
- color:white;background:#8a684c;border:0;
- padding:10px 16px;border-radius:20px;
- font-size:16px;
+
+.gallery {
+  max-width: 850px;
+  margin: auto;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
 }
-@media(min-width:650px){
- .gallery{grid-template-columns:repeat(3,1fr)}
+
+.card {
+  background: #fffaf1;
+  padding: 10px;
+  border: 1px solid #d9c6ac;
+  border-radius: 8px;
+  box-shadow: 2px 4px 9px #8a684c22;
+  transform: rotate(-1deg);
+  transition: .25s;
+  cursor: pointer;
+}
+
+.card:nth-child(even) {
+  transform: rotate(1deg);
+}
+
+.card:hover {
+  transform: scale(1.03);
+}
+
+.card img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  border-radius: 4px;
+  background: #e8d7bd;
+}
+
+.caption {
+  text-align: center;
+  padding: 10px 2px 4px;
+}
+
+footer {
+  text-align: center;
+  margin: 35px 0 10px;
+  color: #8a684c;
+  font-style: italic;
+}
+
+#viewer {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: #24170fef;
+  z-index: 5;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+#viewer.show {
+  display: flex;
+}
+
+#viewer img {
+  max-width: 95%;
+  max-height: 78vh;
+  object-fit: contain;
+  border: 8px solid #fff8ed;
+  border-radius: 5px;
+}
+
+#close {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  color: white;
+  background: #8a684c;
+  border: 0;
+  padding: 10px 16px;
+  border-radius: 20px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+@media (min-width: 650px) {
+  .gallery {
+    grid-template-columns: repeat(3, 1fr);
+  }
 }
 </style>
 </head>
+
 <body>
 
 <header>
- <h1>Our Little Memories ♡</h1>
- <div class="subtitle">
-  Ten moments. Countless memories.
- </div>
+  <h1>Our Little Memories ♡</h1>
+  <div class="subtitle">
+    Twelve moments. Countless memories.
+  </div>
 </header>
 
 <main class="gallery" id="gallery"></main>
 
 <footer>
- Made with love for Mama 💖🫶
+  Made with love for Mama 💖🫶
 </footer>
 
 <div id="viewer" onclick="closeViewer()">
- <button id="close">✕ Close</button>
- <img id="largePhoto" alt="Selected memory">
+  <button id="close" onclick="event.stopPropagation(); closeViewer()">
+    ✕ Close
+  </button>
+  <img id="largePhoto" alt="Selected memory">
 </div>
 
 <script>
 const captions = [
- "A memory worth keeping 📸",
- "One for the diary ♡",
- "A little moment, forever",
- "The laughs we remember",
- "Our friendship, in a frame",
- "A day to remember",
- "Just us being us",
- "Another beautiful memory",
- "A moment close to heart",
- "Forever in our scrapbook 💖"
+  "A memory worth keeping 📸",
+  "One for the diary ♡",
+  "A little moment, forever",
+  "The laughs we remember",
+  "Our friendship, in a frame",
+  "A day to remember",
+  "Just us being us",
+  "Another beautiful memory",
+  "A moment close to heart",
+  "Forever in our scrapbook 💖",
+  "One more chapter of us 🥹",
+  "Forever in our diary 💖"
 ];
 
 const gallery = document.getElementById("gallery");
 
-for(let i=1;i<=10;i++){
- const number=String(i).padStart(2,"0");
- const card=document.createElement("div");
- card.className="card";
+for (let i = 1; i <= 12; i++) {
+  const number = String(i).padStart(2, "0");
 
- const img=document.createElement("img");
- img.src=`assets/memory-${number}.jpg`;
- img.alt=`Memory ${i}`;
- img.loading="lazy";
+  const card = document.createElement("div");
+  card.className = "card";
 
- img.onerror=()=>{
-   img.style.visibility="hidden";
-   img.parentElement.style.background="#e8d7bd";
- };
+  const img = document.createElement("img");
+  img.src = `assets/memory-${number}.jpg`;
+  img.alt = `Memory ${i}`;
+  img.loading = "lazy";
 
- const caption=document.createElement("div");
- caption.className="caption";
- caption.textContent=captions[i-1];
+  img.onerror = () => {
+    img.alt = `Photo ${i} not uploaded yet`;
+    img.style.visibility = "hidden";
+  };
 
- card.append(img,caption);
- card.onclick=()=>openViewer(img.src);
+  const caption = document.createElement("div");
+  caption.className = "caption";
+  caption.textContent = captions[i - 1];
 
- gallery.appendChild(card);
+  card.append(img, caption);
+
+  card.onclick = () => {
+    if (img.complete && img.naturalWidth > 0) {
+      openViewer(img.src);
+    }
+  };
+
+  gallery.appendChild(card);
 }
 
-function openViewer(src){
- const viewer=document.getElementById("viewer");
- document.getElementById("largePhoto").src=src;
- viewer.classList.add("show");
+function openViewer(src) {
+  const viewer = document.getElementById("viewer");
+  document.getElementById("largePhoto").src = src;
+  viewer.classList.add("show");
 }
 
-function closeViewer(){
- document.getElementById("viewer").classList.remove("show");
+function closeViewer() {
+  document.getElementById("viewer").classList.remove("show");
 }
 
-document.addEventListener("keydown",e=>{
- if(e.key==="Escape")closeViewer();
+document.addEventListener("keydown", event => {
+  if (event.key === "Escape") {
+    closeViewer();
+  }
 });
 </script>
+
 </body>
 </html>
