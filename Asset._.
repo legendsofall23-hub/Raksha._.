@@ -4,6 +4,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#f5ebdd">
 <title>Our Little Memories 💖</title>
 
 <style>
@@ -50,8 +51,9 @@ h1 {
   border-radius: 8px;
   box-shadow: 2px 4px 9px #8a684c22;
   transform: rotate(-1deg);
-  transition: .25s;
+  transition: transform .25s;
   cursor: pointer;
+  min-width: 0;
 }
 
 .card:nth-child(even) {
@@ -71,6 +73,20 @@ h1 {
   background: #e8d7bd;
 }
 
+.placeholder {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  background: #e8d7bd;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: #8a684c;
+  padding: 10px;
+  font-style: italic;
+}
+
 .caption {
   text-align: center;
   padding: 10px 2px 4px;
@@ -87,7 +103,7 @@ footer {
   display: none;
   position: fixed;
   inset: 0;
-  background: #24170fef;
+  background: #24170fee;
   z-index: 5;
   align-items: center;
   justify-content: center;
@@ -124,6 +140,12 @@ footer {
     grid-template-columns: repeat(3, 1fr);
   }
 }
+
+@media (prefers-reduced-motion: reduce) {
+  .card {
+    transition: none;
+  }
+}
 </style>
 </head>
 
@@ -143,10 +165,12 @@ footer {
 </footer>
 
 <div id="viewer" onclick="closeViewer()">
-  <button id="close" onclick="event.stopPropagation(); closeViewer()">
+  <button id="close" type="button"
+    onclick="event.stopPropagation(); closeViewer()">
     ✕ Close
   </button>
-  <img id="largePhoto" alt="Selected memory">
+  <img id="largePhoto" alt="Selected memory"
+    onclick="event.stopPropagation()">
 </div>
 
 <script>
@@ -178,22 +202,27 @@ for (let i = 1; i <= 12; i++) {
   img.alt = `Memory ${i}`;
   img.loading = "lazy";
 
+  const placeholder = document.createElement("div");
+  placeholder.className = "placeholder";
+  placeholder.textContent = `Photo ${i} will appear here ♡`;
+  placeholder.hidden = true;
+
   img.onerror = () => {
-    img.alt = `Photo ${i} not uploaded yet`;
-    img.style.visibility = "hidden";
+    img.hidden = true;
+    placeholder.hidden = false;
   };
 
   const caption = document.createElement("div");
   caption.className = "caption";
   caption.textContent = captions[i - 1];
 
-  card.append(img, caption);
+  card.append(img, placeholder, caption);
 
-  card.onclick = () => {
+  card.addEventListener("click", () => {
     if (img.complete && img.naturalWidth > 0) {
       openViewer(img.src);
     }
-  };
+  });
 
   gallery.appendChild(card);
 }
@@ -206,6 +235,7 @@ function openViewer(src) {
 
 function closeViewer() {
   document.getElementById("viewer").classList.remove("show");
+  document.getElementById("largePhoto").src = "";
 }
 
 document.addEventListener("keydown", event => {
