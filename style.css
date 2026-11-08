@@ -648,3 +648,43 @@ footer p + p {
     transition-duration: .01ms !important;
   }
 }
+
+
+/* Special centered memories - 11 and 12 */
+.special-memory-row {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 28px;
+  width: 100%;
+  margin: 35px auto 0;
+}
+
+.special-memory-row figure {
+  width: min(30%, 280px);
+  margin: 0;
+  text-align: center;
+}
+
+.special-memory-row img {
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  display: block;
+  border-radius: 5px;
+}
+
+.special-memory-row figcaption {
+  margin-top: 12px;
+}
+
+/* Mobile layout */
+@media (max-width: 600px) {
+  .special-memory-row {
+    gap: 14px;
+  }
+
+  .special-memory-row figure {
+    width: 44%;
+  }
+}
